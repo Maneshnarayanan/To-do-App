@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './Todoapp.css'
+import "./Todoapp.css";
 export default class Todoapp extends Component {
     state = {
         input: "",
@@ -13,12 +13,11 @@ export default class Todoapp extends Component {
     };
 
     storeItems = (event) => {
-        
         event.preventDefault();
         const { input } = this.state;
         this.setState({
             items: [...this.state.items, input],
-            input: ""
+            input: "",
         });
     };
 
@@ -28,22 +27,12 @@ export default class Todoapp extends Component {
         });
     };
 
-    editItem=(key)=>{
-        // const = this.state
-        const  val  = prompt('', this.state.items[key]);
-        
-        let newArray = this.state.items.slice();  
-        delete newArray[key]  
-        newArray.push(val);   
-        this.setState({items:newArray})
-        // this.setState({
-        //     items: this.state.items.filter((data, index) => index !== key),
-        // });
+    editItem = (key) => {
+        let val = prompt("", this.state.items[key]);
 
-        // this.setState({
-        //     items : this.state.items.slice(val,key)
-        // })
-    }
+        this.state.items.splice(key, 1, val);
+        this.setState({ items: this.state.items });
+    };
 
     render() {
         const { input, items } = this.state;
@@ -56,7 +45,8 @@ export default class Todoapp extends Component {
                 <ul>
                     {items.map((data, index) => (
                         <li key={index}>
-                            {data} <i className="fas fa-edit" onClick={()=> this.editItem(index)}></i> <i className="fa-solid fa-trash" onClick={()=> this.deleteItem(index)}></i>
+                            {data} <i className="fas fa-edit" onClick={() => this.editItem(index)}></i>{" "}
+                            <i className="fa-solid fa-trash" onClick={() => this.deleteItem(index)}></i>
                         </li>
                     ))}
                 </ul>
